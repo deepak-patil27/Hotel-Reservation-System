@@ -3,16 +3,17 @@ package com.bridgelab;
 public class Hotel {
 	private String hotelName;
 	private int rating;
-	private double weekDayRate;
-	private double weekendRate;
+	private double weekdayRegularCustomerCost;
+	private double weekendRegularCustomerCost;
+
 	public Hotel() {
 	}
 
-	public Hotel(String hotelName, int rating, double weekDayRate, double weekendRate) {
+	public Hotel(String hotelName, int rating, double weekdayRegularCustomerCost, double weekendRegularCustomerCost) {
 		this.hotelName = hotelName;
 		this.rating = rating;
-		this.weekDayRate = weekDayRate;
-		this.weekendRate=weekendRate;
+		this.weekdayRegularCustomerCost = weekdayRegularCustomerCost;
+		this.weekendRegularCustomerCost = weekendRegularCustomerCost;
 	}
 
 	public String getHotelName() {
@@ -30,28 +31,29 @@ public class Hotel {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-
-	public double getWeekDayRate() {
-		return weekDayRate;
+	
+	public double getWeekdayRegularCustomerCost() {
+		return weekdayRegularCustomerCost;
 	}
-
-	public void setWeekDayRate(double weekDayRate) {
-		this.weekDayRate = weekDayRate;
+	
+	public void setWeekdayRegularCustomerCost(double weekdayRegularCustomerCost) {
+		this.weekdayRegularCustomerCost = weekdayRegularCustomerCost;
 	}
-
-	public double getWeekendRate() {
-		return weekendRate;
+	
+	public double getWeekendRegularCustomerCost() {
+		return weekendRegularCustomerCost;
 	}
-
-	public void setWeekendRate(double weekendRate) {
-		this.weekendRate = weekendRate;
+	
+	public void setWeekendRegularCustomerCost(double weekendRegularCustomerCost) {
+		this.weekendRegularCustomerCost = weekendRegularCustomerCost;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Hotel [hotelName=" + hotelName + ", rating=" + rating + ", weekDayRate=" + weekDayRate
-				+ ", weekendRate=" + weekendRate + "]";
+		return "Hotels [hotelName=" + hotelName + ", rating=" + rating + ", Regular Customer WeekDay Cost="+ weekdayRegularCustomerCost+ "Regular Customer WeekDay Cost="+ weekdayRegularCustomerCost +"]\n";
 	}
+
+
 
 
 
