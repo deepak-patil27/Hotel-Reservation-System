@@ -31,9 +31,9 @@ public class HotelReservationTest {
 	@Test
 	public void givenHotelList_WhenAdded_shouldReturnProperHotelRating(){
 		HotelReservationIF hotelReservation = new HotelReservation();
-		hotelReservation.addHotel("Bridgewood", 4, 150, 50);
+		hotelReservation.addHotel("Ridgewood", 5, 220, 150);
 		int hotelRating = hotelReservation.getHotelList().get(0).getRating();
-		Assert.assertEquals(4, hotelRating);
+		Assert.assertEquals(5, hotelRating);
 	}
 	
 	@Test
