@@ -39,11 +39,11 @@ public class HotelReservation implements HotelReservationIF {
 		return hotelList;
 	}
 
-	public ArrayList<Hotel> getCheapestHotel(LocalDate startDate, LocalDate endDate) {
-
+public ArrayList<Integer> getDurationOfStayDetails(LocalDate startDate, LocalDate endDate){
+		
+		ArrayList<Integer> durationDetails = new ArrayList<Integer>();
 		int numberOfDays = (int) ChronoUnit.DAYS.between(startDate, endDate)+1;
         int weekends = 0;
-        
 		while (startDate.compareTo(endDate) != 0) {
             switch (DayOfWeek.of(startDate.get(ChronoField.DAY_OF_WEEK))) {
                 case SATURDAY:
@@ -52,12 +52,24 @@ public class HotelReservation implements HotelReservationIF {
                 case SUNDAY:
                     ++weekends;
                     break;
+                default:
+                	break;
             }
             startDate = startDate.plusDays(1);
         }
 		
-		final int weekdaysNumber = numberOfDays - weekends;
-		final int weekendsNumber = weekends;
+		int weekdays = numberOfDays - weekends;
+		durationDetails.add(weekdays);
+		durationDetails.add(weekends);
+		return durationDetails;
+		
+	}
+	
+	public ArrayList<Hotel> getCheapestHotel(LocalDate startDate, LocalDate endDate) {
+		
+		ArrayList<Integer> durationDetails = getDurationOfStayDetails(startDate, endDate);
+		int weekdaysNumber = durationDetails.get(0);
+		int weekendsNumber = durationDetails.get(1);
 		
 		cheapestPrice = hotelList.stream()
 				.mapToDouble(hotel -> ((hotel.getWeekendRegularCustomerCost()*weekendsNumber) + hotel.getWeekdayRegularCustomerCost()*weekdaysNumber))
@@ -70,8 +82,9 @@ public class HotelReservation implements HotelReservationIF {
 		
         if (cheapestPrice != Double.MAX_VALUE) {
         	Iterator<Hotel> iterator = cheapestHotel.iterator();
+        	System.out.println("Cheap Hotels : \n");
         	while(iterator.hasNext()) {
-        		System.out.println("Cheap Hotel : \n" + iterator.next().getHotelName() + ", Total Rates: " + cheapestPrice);
+        		System.out.println(iterator.next().getHotelName() + ", Total Rates: " + cheapestPrice);
         	}
         	return cheapestHotel;
         }
@@ -82,8 +95,18 @@ public class HotelReservation implements HotelReservationIF {
 		
 		ArrayList<Hotel> cheapestHotels = getCheapestHotel(startDate, endDate);
 		Optional<Hotel> sortedHotelList = cheapestHotels.stream().max(Comparator.comparing(Hotel::getRating));
-		System.out.println("\nCheapest Best Rated Hotel : \n" + sortedHotelList.get().getHotelName() + ", Total Rates: " + cheapestPrice);
-		System.out.println();
+		System.out.println("Cheapest Best Rated Hotel : \n" + sortedHotelList.get().getHotelName() + ", Total Rates: " + cheapestPrice);
+		return sortedHotelList.get();
+	}
+	
+	public Hotel getBestRatedHotel(LocalDate startDate, LocalDate endDate) {
+		
+		ArrayList<Integer> durationDetails = getDurationOfStayDetails(startDate, endDate);
+		int weekdaysNumber = durationDetails.get(0);
+		int weekendsNumber = durationDetails.get(1);		
+		Optional<Hotel> sortedHotelList = hotelList.stream().max(Comparator.comparing(Hotel::getRating));
+		double totalPrice = weekdaysNumber*sortedHotelList.get().getWeekdayRegularCustomerCost()+ weekendsNumber*sortedHotelList.get().getWeekendRegularCustomerCost();
+		System.out.println("Best Rated Hotel : \n" + sortedHotelList.get().getHotelName() + ", Total Rates: " + totalPrice);
 		return sortedHotelList.get();
 	}
 
