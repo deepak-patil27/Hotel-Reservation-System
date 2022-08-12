@@ -72,9 +72,8 @@ public class Hotel {
 	@Override
 	public String toString() {
 		return "Hotels [hotelName=" + hotelName + ", rating=" + rating + ", Regular Customer WeekDay Cost="
-				+ weekdayRegularCustomerCost + "Regular Customer WeekDay Cost=" + weekdayRegularCustomerCost
-				+ ", Reward Customer WeekDay Cost=" + weekdayRewardCustomerCost + "Reward Customer WeekDay Cost="
-				+ weekendRewardCustomerCost + "]\n";
+				+ weekdayRegularCustomerCost + "Regular Customer WeekDay Cost=" + weekdayRegularCustomerCost + ", Reward Customer WeekDay Cost="
+				+ weekdayRewardCustomerCost + "Reward Customer WeekDay Cost=" + weekendRewardCustomerCost + "]\n";
 	}
 
 }
